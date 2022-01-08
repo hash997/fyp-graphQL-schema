@@ -1,1 +1,1 @@
-# fyp-graphQL-shema
+# fyp-graphQL-schema
