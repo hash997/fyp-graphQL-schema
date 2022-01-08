@@ -75,8 +75,8 @@ type JobRequest {
 type Location {
   id: ID!
   customerId: ID!
-  lng: Int!
-  lat: Int!
+  lng: String!
+  lat: String!
   state: String!
   city: String!
   address: String!
@@ -209,8 +209,8 @@ input UpdateOfferInput {
 
 input CreateLocationInput {
   customerId: ID!
-  lng: Int!
-  lat: Int!
+  lng: String!
+  lat: String!
   state: String!
   city: String!
   address: String!
