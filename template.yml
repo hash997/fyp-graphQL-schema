@@ -1,0 +1,41 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: Customer Resolver For GraphQL
+# Globals:
+#   Function:
+#     Timeout: 30
+
+Resources:
+  FinalYearProjectAPI:
+    Type: "AWS::AppSync::GraphQLApi"
+    Properties:
+      Name: "fyp-graphQl"
+      AuthenticationType: "API_KEY"
+  FinalYearProjectGraphQlAPIKey:
+    Type: "AWS::AppSync::ApiKey"
+    Properties:
+      ApiId: !GetAtt FinalYearProjectAPI.ApiId
+  FinalYearProjectGraphQlSchema:
+    Type: "AWS::AppSync::GraphQLSchema"
+    Properties:
+      ApiId: !GetAtt FinalYearProjectAPI.ApiId
+      DefinitionS3Location: "./fyp-schema.graphql"
+
+Outputs:
+  FinalYearProjectAPI:
+    Value: !GetAtt FinalYearProjectAPI.Arn
+  FinalYearProjectAPIId:
+    Description: A reference to final-year-project graphQl Api ID
+    Value: "da2-rviwnub5ffgj3fayiln6vzy3ou"
+    Export:
+      Name: FinalYearProjectAPIId
+  FinalYearProjectGraphQLUrl:
+    Description: A reference to final-year-project graphQl Api endpoint url
+    Value: !GetAtt FinalYearProjectAPI.GraphQLUrl
+    Export:
+      Name: FinalYearProjectGraphQLUrl
+  FYPtGraphQLAPIKey:
+    Description: A reference to final-year-project graphQl Api key
+    Value: !GetAtt FinalYearProjectGraphQlAPIKey.ApiKey
+    Export:
+      Name: FYPtGraphQLAPIKey

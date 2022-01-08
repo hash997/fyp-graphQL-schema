@@ -1,0 +1,188 @@
+# Welcome to AWS AppSync!
+#
+# Use this editor to define the structure of your API with the GraphQL
+# schema definition language (SDL).
+#
+# Getting started is easy!
+#
+# 1. Uncomment (cmd/ctrl + /) the schema below and click save.
+# 2. Click provision resources to deploy a DynamoDB table and connect it with queries.
+# 3. Go to the queries tab and query DynamoDB with GraphQL.
+#
+schema {
+  query: Query
+  mutation: Mutation
+}
+type Query {
+  # Get a single value of type 'Post' by primary key.
+  customerById(customerId: ID!): Customer!
+  workerById(workerId: ID!): Worker!
+  jobById(jobId: ID!): JobRequest!
+  offerById(offerId: ID!): Offer!
+  jobsByCustomerId(customerId: ID!): [JobRequest]!
+  offersByCustomerId(customerId: ID): [Offer]!
+  jobsByWorkerId(workerId: ID!): [JobRequest]!
+  offersByWorkerId(workerId: ID!): [Offer]!
+}
+type Mutation {
+  # Put a single value of type 'Post'.
+  # If an item exists it's updated. If it does not it's created.
+  createCustomer(createCustomerInput: CreateCustomerInput!): Customer!
+  createWorker(createWorkerInput: CreateWorkerInput!): Worker!
+  createJobRequest(createJobRequestInput: CreateJobRequestInput!): JobRequest!
+  createOffer(createOfferInput: CreateOfferInput!): Offer!
+
+  updateCustomer(updateCustomerInput: UpdateCustomerInput!): Customer!
+  updateWorker(updateWorkerInput: UpdateWorkerInput!): Worker!
+  updateJobRequest(updateJobRequestInput: UpdateJobRequestInput!): JobRequest!
+  updateOffer(updateOfferInput: UpdateOfferInput!): Offer!
+
+  deleteCustomer(id: ID!): Customer!
+  deleteWorker(id: ID!): Worker!
+  deleteJobRequest(id: ID!): JobRequest!
+  deleteOffer(id: ID!): Offer!
+}
+type Post {
+  id: ID!
+  title: String!
+}
+
+type Customer {
+  id: ID!
+  fName: String!
+  lName: String!
+  email: String!
+  phoneNo: String!
+  postalZipCode: String
+  jobRequests: [JobRequest]!
+}
+
+type JobRequest {
+  id: ID!
+  customerId: ID!
+  location: Location!
+  city: String!
+  status: JobStatus!
+  title: String!
+  description: String!
+  totalCost: Float!
+  offers: [Offer]
+}
+
+type Location {
+  id: ID!
+  customerId: ID!
+  lng: Int!
+  lat: Int!
+  state: String!
+  city: String!
+  address: String!
+}
+
+enum JobStatus {
+  CREATED
+  ACCEPTED
+  CUSTOMER_CANCELED
+  WORKER_CALNCELED
+  COMPLETED
+  CLIENT_DIDNT_SHOW_UP
+  WORKER_DIDNT_SHOW_UP
+}
+
+type Worker {
+  id: ID!
+  fName: String!
+  lName: String!
+  email: String!
+  icNo: String!
+  phoneNo: String!
+  speciality: WorkerSpeciality!
+}
+
+enum WorkerSpeciality {
+  HANDYMAN
+  DRIVER
+  AIRCONSPEC
+  PLUMBER
+}
+
+type Offer {
+  id: ID!
+  customerId: ID!
+  workerId: ID!
+  jobId: ID!
+  price: Float!
+}
+
+input CreateCustomerInput {
+  fName: String!
+  lName: String!
+  email: String!
+  phoneNo: String!
+  postalZipCode: String
+}
+
+input CreateWorkerInput {
+  fName: String!
+  lName: String!
+  email: String!
+  icNo: String!
+  phoneNo: String!
+  speciality: WorkerSpeciality!
+}
+
+input CreateJobRequestInput {
+  customerId: ID!
+  location: CreateLocationInput!
+  status: JobStatus!
+  title: String!
+  city: String!
+  description: String!
+}
+
+input CreateOfferInput {
+  customerId: ID!
+  workerId: ID!
+  jobId: ID!
+  price: Float!
+}
+
+input UpdateCustomerInput {
+  id: ID!
+  fName: String
+  lName: String
+  email: String
+  phoneNo: String
+  postalZipCode: String
+}
+
+input UpdateWorkerInput {
+  id: ID!
+  fName: String
+  lName: String
+  email: String
+  icNo: Int
+  phoneNo: Int
+  speciality: WorkerSpeciality
+}
+
+input UpdateJobRequestInput {
+  id: ID!
+  status: JobStatus
+}
+
+input UpdateOfferInput {
+  id: ID!
+  price: Float
+}
+
+input CreateLocationInput {
+  customerId: ID!
+  lng: Int!
+  lat: Int!
+  state: String!
+  city: String!
+  address: String!
+}
+
+#
