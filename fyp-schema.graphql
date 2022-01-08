@@ -55,6 +55,7 @@ type Customer {
   phoneNo: String!
   postalZipCode: String
   jobRequests: [JobRequest]!
+  appointments: [Appointment]
 }
 
 type JobRequest {
@@ -67,6 +68,8 @@ type JobRequest {
   description: String!
   totalCost: Float!
   offers: [Offer]
+  sentAt: AWSDateTime!
+  completedAt: AWSDateTime
 }
 
 type Location {
@@ -97,6 +100,8 @@ type Worker {
   icNo: String!
   phoneNo: String!
   speciality: WorkerSpeciality!
+  offers: [Offer]!
+  appointments: [Appointment]
 }
 
 enum WorkerSpeciality {
@@ -112,6 +117,15 @@ type Offer {
   workerId: ID!
   jobId: ID!
   price: Float!
+  sentAt: AWSDateTime!
+  status: OfferStatus!
+}
+
+enum OfferStatus {
+  SENT
+  ACCEPTED
+  COMPELTED
+  CANCELED
 }
 
 input CreateCustomerInput {
@@ -120,6 +134,23 @@ input CreateCustomerInput {
   email: String!
   phoneNo: String!
   postalZipCode: String
+}
+
+type Appointment {
+  id: ID!
+  customerId: ID!
+  workerId: ID!
+  offerId: ID!
+  time: AWSDateTime!
+  status: String
+}
+enum AppointmentStatus {
+  UPCOMING
+  CUSTOMER_CANCELLED
+  WORKER_CANCELED
+  COMPLETED
+  CUSTOMER_NO_SHOW_UP
+  WORER_NO_SHOW_UP
 }
 
 input CreateWorkerInput {
