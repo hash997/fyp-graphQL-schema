@@ -17,6 +17,7 @@ schema {
 type Query {
   # Get a single value of type 'Post' by primary key.
   customerById(customerId: ID!): Customer!
+
   workerById(workerId: ID!): Worker!
   jobById(jobId: ID!): JobRequest!
   offerById(offerId: ID!): Offer!

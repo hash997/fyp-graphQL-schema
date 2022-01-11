@@ -30,7 +30,10 @@ Outputs:
       - Arn
   FinalYearProjectAPIId:
     Description: A reference to final-year-project graphQl Api ID
-    Value: da2-rviwnub5ffgj3fayiln6vzy3ou
+    Value:
+      Fn::GetAtt:
+      - FinalYearProjectAPI
+      - ApiId
     Export:
       Name: FinalYearProjectAPIId
   FinalYearProjectGraphQLUrl:
