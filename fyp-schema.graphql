@@ -15,9 +15,7 @@ schema {
   subscription: Subscription
 }
 type Query {
-  # Get a single value of type 'Post' by primary key.
   customerById(customerId: ID!): Customer!
-
   workerById(workerId: ID!): Worker!
   jobById(jobId: ID!): JobRequest!
   offerById(offerId: ID!): Offer!
@@ -27,11 +25,12 @@ type Query {
   offersByWorkerId(workerId: ID!): [Offer]!
 }
 type Mutation {
-  # Put a single value of type 'Post'.
-  # If an item exists it's updated. If it does not it's created.
   createCustomer(createCustomerInput: CreateCustomerInput!): Customer!
   createWorker(createWorkerInput: CreateWorkerInput!): Worker!
   createJobRequest(createJobRequestInput: CreateJobRequestInput!): JobRequest!
+  createJobRequestToWorker(
+    createJobRequestToWorkerInput: CreateJobRequestToWorkerInput!
+  ): JobRequestToWorker!
   createOffer(createOfferInput: CreateOfferInput!): Offer!
 
   updateCustomer(updateCustomerInput: UpdateCustomerInput!): Customer!
@@ -71,6 +70,20 @@ type JobRequest {
   customerId: ID!
   location: Location!
   city: String!
+  status: JobStatus!
+  title: String!
+  description: String!
+  totalCost: Float!
+  offers: [Offer]
+  sentAt: AWSDateTime!
+  completedAt: AWSDateTime
+}
+
+type JobRequestToWorker {
+  id: ID!
+  customerId: ID!
+  location: Location!
+  workerId: ID!
   status: JobStatus!
   title: String!
   description: String!
@@ -172,6 +185,15 @@ input CreateWorkerInput {
 
 input CreateJobRequestInput {
   customerId: ID!
+  location: CreateLocationInput!
+  status: JobStatus!
+  title: String!
+  city: String!
+  description: String!
+}
+input CreateJobRequestToWorkerInput {
+  customerId: ID!
+  workerId: ID!
   location: CreateLocationInput!
   status: JobStatus!
   title: String!

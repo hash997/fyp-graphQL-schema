@@ -21,7 +21,7 @@ Resources:
         Fn::GetAtt:
         - FinalYearProjectAPI
         - ApiId
-      DefinitionS3Location: ../../fyp-schema.graphql
+      DefinitionS3Location: ..\..\fyp-schema.graphql
 Outputs:
   FinalYearProjectAPI:
     Value:
