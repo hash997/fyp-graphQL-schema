@@ -17,8 +17,8 @@ schema {
 type Query {
   customerById(customerId: ID!): Customer!
   workerById(workerId: ID!): Worker!
-  workersByCity(city: String!): [Worker]!
-  jobById(jobId: ID!, speciality: WorkerSpeciality!): JobRequest!
+  workersByCity(city: String!, speciality: WorkerSpeciality!): [Worker]!
+  jobById(jobId: ID!): JobRequest!
   offerById(offerId: ID!): Offer!
   jobsByCustomerId(customerId: ID!): [JobRequest]!
   offersByCustomerId(customerId: ID): [Offer]!
