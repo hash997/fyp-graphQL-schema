@@ -141,6 +141,7 @@ type Worker {
   appointments: [Appointment]
   lat: String!
   lng: String!
+  isActive: Boolean!
 }
 
 enum WorkerSpeciality {
@@ -200,6 +201,7 @@ input CreateWorkerInput {
   phoneNo: String!
   speciality: WorkerSpeciality!
   city: String!
+  hourlyRate: Float!
 }
 
 input CreateJobRequestInput {
@@ -246,6 +248,8 @@ input UpdateWorkerInput {
   city: String
   lat: String
   lng: String
+  hourlyRate: Float
+  isActive: Boolean
 }
 
 input UpdateJobRequestInput {
