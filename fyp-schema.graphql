@@ -22,6 +22,8 @@ type Query {
   jobsByCustomerId(customerId: ID!): [JobRequest]!
   offersByCustomerId(customerId: ID): [Offer]!
   jobsByWorkerId(workerId: ID!): [JobRequest]!
+  jobsToWorkerByCustomerId(customerId: ID!): [JobRequestToWorker]!
+  jobsToWorkerByWorkerId(workerId: ID!): [JobRequestToWorker]!
   offersByWorkerId(workerId: ID!): [Offer]!
 }
 type Mutation {
@@ -36,6 +38,9 @@ type Mutation {
   updateCustomer(updateCustomerInput: UpdateCustomerInput!): Customer!
   updateWorker(updateWorkerInput: UpdateWorkerInput!): Worker!
   updateJobRequest(updateJobRequestInput: UpdateJobRequestInput!): JobRequest!
+  updateJobRequestToWorker(
+    updateJobReqestToWorkerInput: UpdateJobRequestToWorkerInput!
+  ): JobRequestToWorker!
   updateOffer(updateOfferInput: UpdateOfferInput!): Offer!
 
   deleteCustomer(id: ID!): Customer!
@@ -88,7 +93,6 @@ type JobRequestToWorker {
   title: String!
   description: String!
   totalCost: Float!
-  offers: [Offer]
   sentAt: AWSDateTime!
   completedAt: AWSDateTime
 }
@@ -197,7 +201,6 @@ input CreateJobRequestToWorkerInput {
   location: CreateLocationInput!
   status: JobStatus!
   title: String!
-  city: String!
   description: String!
 }
 
@@ -228,6 +231,10 @@ input UpdateWorkerInput {
 }
 
 input UpdateJobRequestInput {
+  id: ID!
+  status: JobStatus
+}
+input UpdateJobRequestToWorkerInput {
   id: ID!
   status: JobStatus
 }
