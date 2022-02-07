@@ -21,7 +21,7 @@ type Query {
   jobById(jobId: ID!): JobRequest!
   offerById(offerId: ID!): Offer!
   jobsByCustomerId(customerId: ID!): [JobRequest]!
-  jobsByCityAndSpecialityId(
+  jobsByCityAndSpeciality(
     city: String!
     speciality: WorkerSpeciality
   ): [JobRequest]!
@@ -87,6 +87,7 @@ type JobRequest {
   offers: [Offer]
   sentAt: AWSDateTime!
   completedAt: AWSDateTime
+  speciality: WorkerSpeciality!
 }
 
 type JobRequestToWorker {
@@ -216,6 +217,7 @@ input CreateJobRequestInput {
   title: String!
   city: String!
   description: String!
+  speciality: WorkerSpeciality!
 }
 input CreateJobRequestToWorkerInput {
   customerId: ID!
