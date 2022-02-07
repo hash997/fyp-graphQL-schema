@@ -21,6 +21,10 @@ type Query {
   jobById(jobId: ID!): JobRequest!
   offerById(offerId: ID!): Offer!
   jobsByCustomerId(customerId: ID!): [JobRequest]!
+  jobsByCityAndSpecialityId(
+    city: String!
+    speciality: WorkerSpeciality
+  ): [JobRequest]!
   offersByCustomerId(customerId: ID): [Offer]!
   jobsByWorkerId(workerId: ID!): [JobRequest]!
   jobsToWorkerByCustomerId(customerId: ID!): [JobRequestToWorker]!
