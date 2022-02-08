@@ -30,6 +30,7 @@ type Query {
   jobsToWorkerByCustomerId(customerId: ID!): [JobRequestToWorker]!
   jobsToWorkerByWorkerId(workerId: ID!): [JobRequestToWorker]!
   offersByWorkerId(workerId: ID!): [Offer]!
+  offersByJobId(jobId: ID!): [Offer]!
 }
 type Mutation {
   createCustomer(createCustomerInput: CreateCustomerInput!): Customer!
@@ -271,6 +272,7 @@ input UpdateJobRequestToWorkerInput {
 input UpdateOfferInput {
   id: ID!
   price: Float
+  status: OfferStatus
 }
 
 input CreateLocationInput {
