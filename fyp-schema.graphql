@@ -31,6 +31,10 @@ type Query {
   jobsToWorkerByWorkerId(workerId: ID!): [JobRequestToWorker]!
   offersByWorkerId(workerId: ID!): [Offer]!
   offersByJobId(jobId: ID!): [Offer]!
+  appointments: [Appointment]!
+  appointmentsByCustomerId(customerId: ID!): [Appointment]!
+  appointmentsByWorkerId(workerId: ID!): [Appointment]!
+  appointmentsByOfferId(offerId: ID!): [Appointment]!
 }
 type Mutation {
   createCustomer(createCustomerInput: CreateCustomerInput!): Customer!
@@ -40,6 +44,9 @@ type Mutation {
     createJobRequestToWorkerInput: CreateJobRequestToWorkerInput!
   ): JobRequestToWorker!
   createOffer(createOfferInput: CreateOfferInput!): Offer!
+  createAppointment(
+    createAppointmentInput: CreateAppointmentInput!
+  ): Appointment!
 
   updateCustomer(updateCustomerInput: UpdateCustomerInput!): Customer!
   updateWorker(updateWorkerInput: UpdateWorkerInput!): Worker!
@@ -48,6 +55,9 @@ type Mutation {
     updateJobReqestToWorkerInput: UpdateJobRequestToWorkerInput!
   ): JobRequestToWorker!
   updateOffer(updateOfferInput: UpdateOfferInput!): Offer!
+  updateAppointment(
+    updateAppointmentInput: UpdateAppointmentInput!
+  ): Appointment!
 
   deleteCustomer(id: ID!): Customer!
   deleteWorker(id: ID!): Worker!
@@ -73,6 +83,7 @@ type Customer {
   phoneNo: String!
   postalZipCode: String
   jobRequests: [JobRequest]!
+  offers: [Offer]!
   appointments: [Appointment]
 }
 
@@ -143,7 +154,6 @@ type Worker {
   speciality: WorkerSpeciality!
   hourlyRate: Float!
   city: String!
-  # location: WorkerLocation!
   offers: [Offer]!
   appointments: [Appointment]
   lat: String!
@@ -189,7 +199,7 @@ type Appointment {
   workerId: ID!
   offerId: ID!
   time: AWSDateTime!
-  status: String
+  status: AppointmentStatus!
 }
 enum AppointmentStatus {
   UPCOMING
@@ -234,6 +244,18 @@ input CreateOfferInput {
   workerId: ID!
   jobId: ID!
   price: Float!
+}
+
+input CreateAppointmentInput {
+  customerId: ID!
+  workerId: ID!
+  offerId: ID!
+  status: AppointmentStatus!
+}
+
+input UpdateAppointmentInput {
+  id: ID!
+  status: AppointmentStatus!
 }
 
 input UpdateCustomerInput {
