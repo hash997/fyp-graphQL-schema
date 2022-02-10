@@ -112,6 +112,7 @@ type JobRequestToWorker {
   description: String!
   totalCost: Float!
   sentAt: AWSDateTime!
+  time: AWSDateTime!
   completedAt: AWSDateTime
 }
 
@@ -176,6 +177,7 @@ type Offer {
   price: Float!
   sentAt: AWSDateTime!
   status: OfferStatus!
+  jobRequest: JobRequest!
 }
 
 enum OfferStatus {
@@ -200,6 +202,9 @@ type Appointment {
   offerId: ID!
   time: AWSDateTime!
   status: AppointmentStatus!
+  jobRequest: JobRequest!
+  customer: Customer!
+  worker: Worker!
 }
 enum AppointmentStatus {
   UPCOMING
@@ -237,6 +242,7 @@ input CreateJobRequestToWorkerInput {
   status: JobStatus!
   title: String!
   description: String!
+  time: AWSDateTime!
 }
 
 input CreateOfferInput {
