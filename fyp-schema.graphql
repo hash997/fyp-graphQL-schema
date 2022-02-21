@@ -66,8 +66,19 @@ type Mutation {
 }
 
 type Subscription {
-  onJobCreated(city: String!): JobRequest
+  onJobCreated(city: String!, speciality: WorkerSpeciality!): JobRequest
     @aws_subscribe(mutations: ["createJobRequest"])
+
+  onJobToWorkerCreated(workerId: ID!): JobRequestToWorker
+    @aws_subscribe(mutations: ["createJobRequestToWorker"])
+  onOfferCreated(customerId: ID!): Offer
+    @aws_subscribe(mutations: ["createOffer"])
+
+  onJobUpdated(customerId: ID!): JobRequest
+    @aws_subscribe(mutations: ["updateJobRequest"])
+  onJobToWorkerUpdated(customerId: ID!): JobRequestToWorker
+    @aws_subscribe(mutations: ["updateJobRequestToWorker"])
+  onUpdateOffer(workerId: ID): Offer @aws_subscribe(mutations: ["updateOffer"])
 }
 
 type Post {
@@ -181,6 +192,7 @@ type Offer {
   status: OfferStatus!
   jobRequest: JobRequest!
   suggestedTime: AWSDateTime!
+  vendorsLocation: String!
 }
 
 enum OfferStatus {
@@ -254,6 +266,7 @@ input CreateOfferInput {
   jobId: ID!
   price: Float!
   suggestedTime: AWSDateTime!
+  vendorsLocation: String!
 }
 
 input CreateAppointmentInput {
