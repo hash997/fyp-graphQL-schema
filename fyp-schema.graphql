@@ -74,7 +74,7 @@ type Subscription {
   onOfferCreated(customerId: ID!): Offer
     @aws_subscribe(mutations: ["createOffer"])
 
-  onJobUpdated(customerId: ID!): JobRequest
+  onJobUpdated(workerId: ID!): JobRequest
     @aws_subscribe(mutations: ["updateJobRequest"])
   onJobToWorkerUpdated(customerId: ID!): JobRequestToWorker
     @aws_subscribe(mutations: ["updateJobRequestToWorker"])
